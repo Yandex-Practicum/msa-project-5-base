@@ -1,0 +1,37 @@
+@startuml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+Person(warehouse_employee, "Сотрудник склада")
+Container(web_ui, "Web UI", "Angular", "Интерфейс для сотрудников склада")
+Container(backend, "Backend API", "Java / WildFly", "Приём файлов и API")
+Container(batch, "Spring Batch Service", "Spring Batch", "ETL-обработка отчётов")
+ContainerDb(gcs, "GCS", "Google Cloud Storage", "CSV-файлы отчётов")
+ContainerDb(postgres, "PostgreSQL", "OLTP DB", "Номенклатура и остатки")
+ContainerDb(batch_meta, "Batch Metadata DB", "PostgreSQL", "Статусы и шаги batch-job")
+' === Monitoring Stack ===
+System_Boundary(monitoring, "Monitoring & Logging") {
+Container(prometheus, "Prometheus", "Metrics", "Сбор метрик")
+Container(grafana, "Grafana", "Dashboard", "Визуализация")
+Container(elk, "ELK Stack", "Logging", "Сбор и анализ логов")
+Container(alertmanager, "AlertManager", "Alerts", "Оповещения")
+}
+Rel(warehouse_employee, web_ui, "Загружает данные")
+Rel(web_ui, backend, "REST")
+Rel(backend, gcs, "Сохраняет файл")
+Rel(backend, batch, "Запускает Job")
+Rel(batch, gcs, "Читает CSV")
+Rel(batch, postgres, "Batch insert/update")
+Rel(batch, batch_meta, "Сохраняет статус")
+' === Monitoring connections ===
+Rel(web_ui, elk, "Логи")
+Rel(backend, elk, "Логи")
+Rel(batch, elk, "Логи")
+Rel(prometheus, web_ui, "Scrape /metrics")
+Rel(prometheus, backend, "Scrape /metrics")
+Rel(prometheus, batch, "Scrape /metrics")
+Rel(grafana, prometheus, "Метрики")
+Rel(grafana, elk, "Логи")
+Rel(prometheus, alertmanager, "Алерты")
+Rel(alertmanager, warehouse_employee, "Уведомления")
+UpdateElementStyle(monitoring, $fontColor="#2E86AB", $borderColor="#2E86AB")
+@enduml
