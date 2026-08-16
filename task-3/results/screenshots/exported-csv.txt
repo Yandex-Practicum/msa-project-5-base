@@ -1,0 +1,9 @@
+total 4
+-rw-r--r--    1 root     root           263 Aug 16 19:24 shipments_2026-08-16.csv
+--- CSV ---
+id,client_id,origin,destination,status,shipped_on
+1,10,Moscow,Kazan,delivered,2026-08-15
+2,11,Sochi,Moscow,in_transit,2026-08-16
+3,10,Kazan,Samara,delivered,2026-08-16
+4,12,Perm,Yekaterinburg,created,2026-08-16
+5,13,Moscow,Novosibirsk,in_transit,2026-08-16

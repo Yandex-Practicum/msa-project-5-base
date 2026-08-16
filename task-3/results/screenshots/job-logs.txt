@@ -1,0 +1,2 @@
+2026-08-16 19:24:15,198 INFO Connecting to database, table=shipments
+2026-08-16 19:24:15,255 INFO Exported 5 rows to /data/shipments_2026-08-16.csv

@@ -1,0 +1,75 @@
+<mxfile host="app.diagrams.net" agent="msa-project-5" version="22.1.0">
+  <diagram id="task5-c4" name="C4 + наблюдение">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1300" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="title" value="To Be: Spring Batch + мониторинг, логи, оповещение" style="text;html=1;fontSize=18;fontStyle=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="820" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="wh" value="&lt;b&gt;Сотрудник склада&lt;/b&gt;&lt;br&gt;[Person]&lt;br&gt;WebSocket, не PagerDuty" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#08427B;fontColor=#ffffff;strokeColor=#052E56;" vertex="1" parent="1">
+          <mxGeometry x="40" y="200" width="180" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="ops" value="&lt;b&gt;Дежурный DevOps&lt;/b&gt;&lt;br&gt;[Person]&lt;br&gt;Алерты прогона/SLO/очереди" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#08427B;fontColor=#ffffff;strokeColor=#052E56;" vertex="1" parent="1">
+          <mxGeometry x="40" y="720" width="180" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="web" value="&lt;b&gt;ERP UI&lt;/b&gt;&lt;br&gt;Angular / WebSocket" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#438DD5;fontColor=#ffffff;strokeColor=#2E6295;" vertex="1" parent="1">
+          <mxGeometry x="260" y="200" width="160" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="app" value="Приложения GCP" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;fillColor=none;strokeColor=#666666;verticalAlign=top;fontStyle=1;align=left;spacingLeft=8;spacingTop=4;" vertex="1" parent="1">
+          <mxGeometry x="460" y="80" width="520" height="420" as="geometry"/>
+        </mxCell>
+        <mxCell id="wf" value="&lt;b&gt;WildFly&lt;/b&gt;&lt;br&gt;Приёмка + /metrics + JSON-логи" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#438DD5;fontColor=#ffffff;strokeColor=#2E6295;" vertex="1" parent="1">
+          <mxGeometry x="500" y="140" width="200" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="batch" value="&lt;b&gt;Spring Batch&lt;/b&gt;&lt;br&gt;Прогон + /metrics + JSON-логи" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1168BD;fontColor=#ffffff;strokeColor=#0B4884;" vertex="1" parent="1">
+          <mxGeometry x="740" y="140" width="200" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="gcs" value="&lt;b&gt;GCS&lt;/b&gt;&lt;br&gt;принятые CSV" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#999999;fontColor=#ffffff;strokeColor=#6B6B6B;" vertex="1" parent="1">
+          <mxGeometry x="620" y="280" width="160" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="pg" value="&lt;b&gt;PostgreSQL&lt;/b&gt;&lt;br&gt;остатки, справочник, job repo" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;size=8;fillColor=#438DD5;fontColor=#ffffff;strokeColor=#2E6295;" vertex="1" parent="1">
+          <mxGeometry x="600" y="380" width="200" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="obs" value="Наблюдение" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;fillColor=none;strokeColor=#666666;verticalAlign=top;fontStyle=1;align=left;spacingLeft=8;spacingTop=4;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="80" width="700" height="780" as="geometry"/>
+        </mxCell>
+        <mxCell id="prom" value="&lt;b&gt;Prometheus&lt;/b&gt;&lt;br&gt;метрики приёмки и прогона" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E7642C;fontColor=#ffffff;strokeColor=#B34B1F;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="140" width="220" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="graf" value="&lt;b&gt;Grafana&lt;/b&gt;&lt;br&gt;дашборды SLO, очередь" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F46800;fontColor=#ffffff;strokeColor=#C45300;" vertex="1" parent="1">
+          <mxGeometry x="1400" y="140" width="220" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="am" value="&lt;b&gt;Alertmanager&lt;/b&gt;&lt;br&gt;прогон / SLO / очередь" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E7642C;fontColor=#ffffff;strokeColor=#B34B1F;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="280" width="220" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="fb" value="&lt;b&gt;Filebeat&lt;/b&gt;&lt;br&gt;сбор stdout JSON" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FEC514;fontColor=#000000;strokeColor=#E6B000;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="440" width="220" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="es" value="&lt;b&gt;Elasticsearch&lt;/b&gt;&lt;br&gt;логи с reportId" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FEC514;fontColor=#000000;strokeColor=#E6B000;" vertex="1" parent="1">
+          <mxGeometry x="1400" y="440" width="220" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="kib" value="&lt;b&gt;Kibana&lt;/b&gt;&lt;br&gt;поиск по reportId" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FEC514;fontColor=#000000;strokeColor=#E6B000;" vertex="1" parent="1">
+          <mxGeometry x="1400" y="580" width="220" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="e1" style="endArrow=block;endFill=1;strokeWidth=2;html=1;" edge="1" parent="1" source="wh" target="web"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e2" style="endArrow=block;endFill=1;strokeWidth=2;html=1;" edge="1" parent="1" source="web" target="wf"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e3" style="endArrow=block;endFill=1;strokeWidth=2;html=1;" edge="1" parent="1" source="wf" target="batch"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e4" style="endArrow=block;endFill=1;strokeWidth=2;html=1;" edge="1" parent="1" source="wf" target="gcs"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e5" style="endArrow=block;endFill=1;strokeWidth=2;html=1;" edge="1" parent="1" source="batch" target="gcs"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e6" style="endArrow=block;endFill=1;strokeWidth=2;html=1;" edge="1" parent="1" source="batch" target="pg"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e7" style="endArrow=block;endFill=1;strokeWidth=2;dashed=1;html=1;" edge="1" parent="1" source="wf" target="prom"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e7l" value="/metrics" style="edgeLabel;html=1;labelBackgroundColor=#ffffff;" vertex="1" connectable="0" parent="e7"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e8" style="endArrow=block;endFill=1;strokeWidth=2;dashed=1;html=1;" edge="1" parent="1" source="batch" target="prom"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e9" style="endArrow=block;endFill=1;strokeWidth=2;html=1;" edge="1" parent="1" source="prom" target="graf"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e10" style="endArrow=block;endFill=1;strokeWidth=2;html=1;" edge="1" parent="1" source="prom" target="am"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e11" style="endArrow=block;endFill=1;strokeWidth=2;html=1;" edge="1" parent="1" source="am" target="ops"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e12" style="endArrow=block;endFill=1;strokeWidth=2;dashed=1;html=1;" edge="1" parent="1" source="wf" target="fb"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e13" style="endArrow=block;endFill=1;strokeWidth=2;dashed=1;html=1;" edge="1" parent="1" source="batch" target="fb"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e14" style="endArrow=block;endFill=1;strokeWidth=2;html=1;" edge="1" parent="1" source="fb" target="es"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e15" style="endArrow=block;endFill=1;strokeWidth=2;html=1;" edge="1" parent="1" source="es" target="kib"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e16" style="endArrow=open;endFill=0;strokeWidth=2;dashed=1;html=1;" edge="1" parent="1" source="ops" target="kib"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

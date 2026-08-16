@@ -1,0 +1,45 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: shipment-analytics-export
+  namespace: analytics-export
+spec:
+  schedule: "0 20 * * *"
+  timeZone: "Europe/Moscow"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      backoffLimit: 2
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: export
+              image: shipment-export:local
+              imagePullPolicy: Never
+              env:
+                - name: DATABASE_URL
+                  valueFrom:
+                    secretKeyRef:
+                      name: export-db
+                      key: url
+                - name: EXPORT_TABLE
+                  value: shipments
+                - name: OUTPUT_DIR
+                  value: /data
+              volumeMounts:
+                - name: output
+                  mountPath: /data
+              resources:
+                requests:
+                  cpu: 50m
+                  memory: 64Mi
+                limits:
+                  cpu: 200m
+                  memory: 256Mi
+          volumes:
+            - name: output
+              persistentVolumeClaim:
+                claimName: export-output

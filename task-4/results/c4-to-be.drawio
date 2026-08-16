@@ -1,0 +1,55 @@
+<mxfile host="app.diagrams.net" agent="msa-project-5" version="22.1.0">
+  <diagram id="task4-c4" name="C4 To Be — Spring Batch">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="title" value="To Be: приёмка складского отчёта и ETL на Spring Batch" style="text;html=1;fontSize=18;fontStyle=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="800" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="person" value="&lt;b&gt;Сотрудник склада&lt;/b&gt;&lt;br&gt;[Person]&lt;br&gt;Сдаёт CSV в конце смены" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#08427B;fontColor=#ffffff;strokeColor=#052E56;" vertex="1" parent="1">
+          <mxGeometry x="40" y="280" width="180" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="web" value="&lt;b&gt;Веб-интерфейс ERP&lt;/b&gt;&lt;br&gt;[Container: Angular, WebSocket]&lt;br&gt;Загрузка отчёта, статус" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#438DD5;fontColor=#ffffff;strokeColor=#2E6295;" vertex="1" parent="1">
+          <mxGeometry x="280" y="270" width="200" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="gcp" value="GCP / Backend" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;dashPattern=8 8;fillColor=none;strokeColor=#666666;verticalAlign=top;fontStyle=1;align=left;spacingLeft=10;spacingTop=4;" vertex="1" parent="1">
+          <mxGeometry x="520" y="70" width="1220" height="720" as="geometry"/>
+        </mxCell>
+        <mxCell id="wf" value="&lt;b&gt;Монолит ERP&lt;/b&gt;&lt;br&gt;[Container: WildFly, Java 11]&lt;br&gt;Приёмка файла, ошибка формата,&lt;br&gt;WebSocket-уведомление" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#438DD5;fontColor=#ffffff;strokeColor=#2E6295;" vertex="1" parent="1">
+          <mxGeometry x="560" y="260" width="240" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="batch" value="&lt;b&gt;Обработка складского отчёта&lt;/b&gt;&lt;br&gt;[Container: Spring Boot + Spring Batch]&lt;br&gt;Прогон: валидация, обогащение,&lt;br&gt;запись остатков. 1 файл = 1 job" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1168BD;fontColor=#ffffff;strokeColor=#0B4884;" vertex="1" parent="1">
+          <mxGeometry x="920" y="250" width="280" height="130" as="geometry"/>
+        </mxCell>
+        <mxCell id="gcs" value="&lt;b&gt;Файловое хранилище&lt;/b&gt;&lt;br&gt;[Container: GCS]&lt;br&gt;Принятые CSV" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#999999;fontColor=#ffffff;strokeColor=#6B6B6B;" vertex="1" parent="1">
+          <mxGeometry x="940" y="80" width="200" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="stock" value="&lt;b&gt;БД остатков&lt;/b&gt;&lt;br&gt;[Container: PostgreSQL]&lt;br&gt;Складские остатки" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=10;fillColor=#438DD5;fontColor=#ffffff;strokeColor=#2E6295;" vertex="1" parent="1">
+          <mxGeometry x="560" y="520" width="200" height="110" as="geometry"/>
+        </mxCell>
+        <mxCell id="ref" value="&lt;b&gt;Справочник товаров&lt;/b&gt;&lt;br&gt;[Container: PostgreSQL]&lt;br&gt;Характеристики, промо" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=10;fillColor=#438DD5;fontColor=#ffffff;strokeColor=#2E6295;" vertex="1" parent="1">
+          <mxGeometry x="820" y="520" width="200" height="110" as="geometry"/>
+        </mxCell>
+        <mxCell id="jobs" value="&lt;b&gt;Job repository&lt;/b&gt;&lt;br&gt;[Container: PostgreSQL]&lt;br&gt;Чекпоинты прогонов" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=10;fillColor=#438DD5;fontColor=#ffffff;strokeColor=#2E6295;" vertex="1" parent="1">
+          <mxGeometry x="1080" y="520" width="200" height="110" as="geometry"/>
+        </mxCell>
+        <mxCell id="a1" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;strokeWidth=2;html=1;" edge="1" parent="1" source="person" target="web"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a1l" value="использует" style="edgeLabel;html=1;labelBackgroundColor=#ffffff;" vertex="1" connectable="0" parent="a1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a2" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;strokeWidth=2;html=1;" edge="1" parent="1" source="web" target="wf"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a2l" value="REST JSON/HTTP" style="edgeLabel;html=1;labelBackgroundColor=#ffffff;" vertex="1" connectable="0" parent="a2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a3" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;strokeWidth=2;html=1;" edge="1" parent="1" source="wf" target="gcs"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a3l" value="сохраняет принятый отчёт" style="edgeLabel;html=1;labelBackgroundColor=#ffffff;" vertex="1" connectable="0" parent="a3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a4" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;strokeWidth=2;html=1;" edge="1" parent="1" source="wf" target="batch"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a4l" value="отчёт принят" style="edgeLabel;html=1;labelBackgroundColor=#ffffff;" vertex="1" connectable="0" parent="a4"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a5" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;strokeWidth=2;html=1;" edge="1" parent="1" source="batch" target="gcs"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a5l" value="читает CSV" style="edgeLabel;html=1;labelBackgroundColor=#ffffff;" vertex="1" connectable="0" parent="a5"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a6" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;strokeWidth=2;html=1;" edge="1" parent="1" source="batch" target="ref"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a7" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;strokeWidth=2;html=1;" edge="1" parent="1" source="batch" target="stock"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a8" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;strokeWidth=2;html=1;" edge="1" parent="1" source="batch" target="jobs"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a9" style="edgeStyle=orthogonalEdgeStyle;dashed=1;endArrow=open;endFill=0;strokeWidth=2;html=1;" edge="1" parent="1" source="wf" target="web"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="680" y="200"/><mxPoint x="380" y="200"/></Array></mxGeometry></mxCell>
+        <mxCell id="a9l" value="WebSocket: принято / обработано / ошибка прогона" style="edgeLabel;html=1;labelBackgroundColor=#ffffff;" vertex="1" connectable="0" parent="a9"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

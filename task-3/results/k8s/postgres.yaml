@@ -1,0 +1,127 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: analytics-export
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: export-db
+  namespace: analytics-export
+type: Opaque
+stringData:
+  url: postgresql://app:app@postgres:5432/analytics
+  postgres-user: app
+  postgres-password: app
+  postgres-db: analytics
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-init
+  namespace: analytics-export
+data:
+  01-init.sql: |
+    CREATE TABLE IF NOT EXISTS shipments (
+        id           INTEGER PRIMARY KEY,
+        client_id    INTEGER        NOT NULL,
+        origin       TEXT           NOT NULL,
+        destination  TEXT           NOT NULL,
+        status       TEXT           NOT NULL,
+        shipped_on   DATE           NOT NULL
+    );
+    INSERT INTO shipments (id, client_id, origin, destination, status, shipped_on) VALUES
+        (1, 10, 'Moscow', 'Kazan', 'delivered', '2026-08-15'),
+        (2, 11, 'Sochi', 'Moscow', 'in_transit', '2026-08-16'),
+        (3, 10, 'Kazan', 'Samara', 'delivered', '2026-08-16'),
+        (4, 12, 'Perm', 'Yekaterinburg', 'created', '2026-08-16'),
+        (5, 13, 'Moscow', 'Novosibirsk', 'in_transit', '2026-08-16')
+    ON CONFLICT DO NOTHING;
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgres-data
+  namespace: analytics-export
+spec:
+  accessModes: ["ReadWriteOnce"]
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: export-output
+  namespace: analytics-export
+spec:
+  accessModes: ["ReadWriteOnce"]
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+  namespace: analytics-export
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:15-alpine
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: export-db
+                  key: postgres-user
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: export-db
+                  key: postgres-password
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: export-db
+                  key: postgres-db
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/postgresql/data
+            - name: init
+              mountPath: /docker-entrypoint-initdb.d
+          readinessProbe:
+            exec:
+              command: ["pg_isready", "-U", "app", "-d", "analytics"]
+            initialDelaySeconds: 5
+            periodSeconds: 5
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: postgres-data
+        - name: init
+          configMap:
+            name: postgres-init
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  namespace: analytics-export
+spec:
+  selector:
+    app: postgres
+  ports:
+    - port: 5432
+      targetPort: 5432
